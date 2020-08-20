@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String msj = (String) request.getAttribute("mensaje");
+%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +21,7 @@
           background: -webkit-linear-gradient(to right, #4CA1AF, #4CA1AF);  /* Chrome 10-25, Safari 5.1-6 */
           background: linear-gradient(to right, #4CA1AF, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           ">
+
 
         <div class="row">
             <div class="col-lg-5 mx-auto">
@@ -42,6 +46,15 @@
                                 <button type="reset" class="btn btn-outline-info">LIMPIAR</button>
                                 <button type="submit" class="btn btn-outline-primary">LOGIN</button>
                             </div>
+                            <%
+                                 if (msj != null) { %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong> <% out.print(msj); %> </strong>                     
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <%}%>
                         </form>
                     </div>
                 </div>

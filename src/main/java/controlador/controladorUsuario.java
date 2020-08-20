@@ -5,7 +5,12 @@
  */
 package controlador;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -39,6 +44,52 @@ public class ControladorUsuario {
             System.out.println("Error al ingresar al Usuario");
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public Usuario login(String correo, String contra) {
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM usuario u WHERE u.correo = '" + correo + "' and u.password = '" + contra + "'");
+            if (!rs.next()) {
+                System.out.println(" No existe usuario");
+                ConectaDB.cerrar();
+                guardarLogin(correo, contra, "NEGADO");
+                return null;
+            } else {
+                guardarLogin(correo, contra, "ACCEPTADO");
+                return  new Usuario(rs.getInt("idusuario"), rs.getString("nombre"), rs.getInt("edad"), rs.getInt("sexo"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("correo"), rs.getString("rol"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void guardarLogin(String correo, String contra, String estado) throws IOException {
+        File archivo;
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        try {
+            //archivo = new File("Registro.txt");
+            archivo = new File("C:\\Users\\Vinicio\\Desktop\\Registro.txt");
+            fw = new FileWriter(archivo, true);
+            pw = new PrintWriter(fw);
+            Date date = new Date();
+            pw.println(correo + "," + contra + ","
+                    + estado + "," + date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pw != null) {
+                    pw.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
     }
 

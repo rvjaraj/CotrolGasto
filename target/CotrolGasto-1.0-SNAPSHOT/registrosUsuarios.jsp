@@ -10,12 +10,22 @@
 <%
     ArrayList<Usuario> listUsuarios = null;
     listUsuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
+    String msj = (String) request.getAttribute("mensaje");
 %> 
 <!DOCTYPE html>
 <html>
     <head>
     <f:subview id="cabeceraadmin">
         <jsp:include page="cabeceraAdmin.jsp" />
+        <%
+            if (msj != null) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong> <% out.print(msj); %> </strong>                     
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <%}%>
     </f:subview>
 </head>
 <body>

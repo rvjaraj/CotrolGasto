@@ -29,16 +29,30 @@ public class loginON extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            List<Usuario> usuarios = conUsuario.leeTodos();
             String correo = request.getParameter("correo");
             String contrasenia = request.getParameter("contra");
-            System.out.println(contrasenia + " <> " + correo);
-            List<Usuario> usuarios = conUsuario.leeTodos();
-            if (usuarios != null) {
+            if (correo.equals("admin@admin.com") & contrasenia.equals("admin")) {
                 request.setAttribute("usuarios", usuarios);
+                request.setAttribute("mensaje", "Entra como administrador ROOT");
                 request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
             } else {
-                request.setAttribute("usuarios", null);
-                request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+                System.out.println(correo + " <<>> " + contrasenia);
+                Usuario res = conUsuario.login(correo, contrasenia);
+                if (res != null) {
+                    if (res.getRol().equals("ADMINISTRADOR")) {
+                        request.setAttribute("usuarios", usuarios);
+                        request.setAttribute("mensaje", "ADMINISTRADOR");
+                        request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+                    } else {
+                        System.out.println("Entrado como usuario");
+                        request.getRequestDispatcher("/usuario.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("mensaje", "Datos Icorrectos");
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                }
+
             }
 
         } finally {
