@@ -29,30 +29,40 @@ public class usuariosON extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String nombre = request.getParameter("nombre");
-            int edad = Integer.parseInt(request.getParameter("edad"));
-            String sex = request.getParameter("sexo");
-            int sexo = 0;
-            if (sex.equals("Femenino")) {
-                sexo = 1;
-            } else {
-                sexo = 2;
-            }
-            String correo = request.getParameter("correo");
-            String contrasenia = request.getParameter("contra");
-            String rol = request.getParameter("rol");
-            Usuario u = new Usuario(nombre, edad, sexo, contrasenia, correo, rol);
-            System.out.println(u.toString());
-            if (conUsuario.ingresar(u)) {
-                List<Usuario> usuarios = conUsuario.leeTodos();
-                if (usuarios != null) {
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
-                }else{
-                    request.setAttribute("usuarios", null);
-                    request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+
+            String tipo = request.getParameter("tipo");
+            if (tipo.equals("guardar")) {
+                String nombre = request.getParameter("nombre");
+                int edad = Integer.parseInt(request.getParameter("edad"));
+                String sex = request.getParameter("sexo");
+                int sexo = 0;
+                if (sex.equals("Femenino")) {
+                    sexo = 1;
+                } else {
+                    sexo = 2;
+                }
+                String correo = request.getParameter("correo");
+                String contrasenia = request.getParameter("contra");
+                String rol = request.getParameter("rol");
+                Usuario u = new Usuario(nombre, edad, sexo, contrasenia, correo, rol);
+                System.out.println(u.toString());
+                if (conUsuario.ingresar(u)) {
+                    request.setAttribute("mensaje", "Cliente Registrado");
+                } else {
+                    request.setAttribute("mensaje", "Error al Cliente Registrado");
+                }
+            } else if (tipo.equals("eliminar")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (conUsuario.borrar(id)) {
+                    request.setAttribute("mensaje", "Cliente Borrado");
+                } else {
+                    request.setAttribute("mensaje", "Error al borrar al Cliente");
                 }
             }
+            List<Usuario> usuarios = conUsuario.leeTodos();
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+
         } finally {
             out.close();
         }

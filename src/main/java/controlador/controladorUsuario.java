@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import modelo.Usuario;
@@ -47,6 +48,51 @@ public class ControladorUsuario {
         }
     }
 
+    public boolean borrar(int id) {
+        int resultUpdate = 0;
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            resultUpdate = stm.executeUpdate("DELETE FROM usuario WHERE idusuario = " + id +";");
+            if (resultUpdate != 0) {
+                ConectaDB.cerrar();
+                return true;
+            } else {
+                ConectaDB.cerrar();
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al borrar " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizarAdmin(Usuario u) {
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            resultUpdate = stm.executeUpdate("UPDATE usuario u SET "
+                    + "u.nombre = '" + u.getNombre() + "',"
+                    + "u.edad = " + u.getEdad() + ", "
+                    + "u.sexo = " + u.getSexo() + ", "
+                    + "u.correo = '" + u.getCorreo() + "', "
+                    + "u.rol = '" + u.getRol() + "' WHERE u.idusuario = " + u.getId() +");");
+
+            if (resultUpdate != 0) {
+                ConectaDB.cerrar();
+                return true;
+            } else {
+                ConectaDB.cerrar();
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar al Usuario");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Usuario login(String correo, String contra) {
         try {
             conn = ConectaDB.abrir();
@@ -59,7 +105,7 @@ public class ControladorUsuario {
                 return null;
             } else {
                 guardarLogin(correo, contra, "ACCEPTADO");
-                return  new Usuario(rs.getInt("idusuario"), rs.getString("nombre"), rs.getInt("edad"), rs.getInt("sexo"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("correo"), rs.getString("rol"));
+                return new Usuario(rs.getInt("idusuario"), rs.getString("nombre"), rs.getInt("edad"), rs.getInt("sexo"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("correo"), rs.getString("rol"));
             }
         } catch (Exception e) {
             System.out.println("Error en la base de datos.");

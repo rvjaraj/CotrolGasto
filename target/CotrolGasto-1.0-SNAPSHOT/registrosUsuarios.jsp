@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Clientes</title>
     <f:subview id="cabeceraadmin">
         <jsp:include page="cabeceraAdmin.jsp" />
         <%
@@ -33,6 +34,7 @@
         <div class="col-md-3">
             <div class="card card-body" >
                 <form action="usuariosON" method="post"><br></br>
+                    <input name="tipo" value="guardar" hidden="true">
                     <h5 class="card-title bg-white">CREACION DE USUARIOS</h5>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -125,15 +127,15 @@
                     <td><%=u.getCorreo()%></td>
                     <td><%=u.getRol()%></td>
                     <td><%=u.getSaldo()%></td>
-                    <td><form>
+                    <td><form action="usuariosON" method="post">
                             <input name="tipo" value="eliminar" hidden="true">
                             <input name="id" value="<%=u.getId()%>" hidden="true">
-                            <button type="submit" class="btn btn-outline-danger">ELIMINAR</button>
+                            <input type="button" class="btn btn-outline-danger" value="ELIMINAR" onclick="confirmarEliminar(this.form)"/>
                         </form></td>
                     <td><form>
                             <input name="tipo" value="modificar" hidden="true">
                             <input name="id" value="<%=u.getId()%>" hidden="true">
-                            <button type="submit" class="btn btn-outline-success">MODIFICAR</button>
+                            <button type="button" class="btn btn-outline-success">MODIFICAR</button>
                         </form></td>
 
                 </tr>
@@ -144,5 +146,6 @@
             </table>
         </div>
     </div>
+    <script src="templete/js/validacionesRegistro.js" type="text/javascript"></script>
 </body>
 </html>
