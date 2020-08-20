@@ -132,10 +132,10 @@
                             <input name="id" value="<%=u.getId()%>" hidden="true">
                             <input type="button" class="btn btn-outline-danger" value="ELIMINAR" onclick="confirmarEliminar(this.form)"/>
                         </form></td>
-                    <td><form>
+                    <td><form action="usuariosON" method="post">
                             <input name="tipo" value="modificar" hidden="true">
                             <input name="id" value="<%=u.getId()%>" hidden="true">
-                            <button type="button" class="btn btn-outline-success">MODIFICAR</button>
+                            <input type="submit" class="btn btn-outline-success" value="MODIFICAR" />
                         </form></td>
 
                 </tr>

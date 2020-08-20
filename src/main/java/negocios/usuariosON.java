@@ -29,7 +29,7 @@ public class usuariosON extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-
+            boolean bandera = true;
             String tipo = request.getParameter("tipo");
             if (tipo.equals("guardar")) {
                 String nombre = request.getParameter("nombre");
@@ -58,10 +58,40 @@ public class usuariosON extends HttpServlet {
                 } else {
                     request.setAttribute("mensaje", "Error al borrar al Cliente");
                 }
+            } else if (tipo.equals("modificar")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                request.setAttribute("mensaje", "Se va a modifiar el Usuario con el ID: " + id);
+                Usuario u = conUsuario.buscarID(id);
+                request.setAttribute("usuario", u);
+                request.getRequestDispatcher("/modificarUsuario.jsp").forward(request, response);
+                bandera = false;
+            }else if (tipo.equals("actualizar")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String nombre = request.getParameter("nombre");
+                int edad = Integer.parseInt(request.getParameter("edad"));
+                String sex = request.getParameter("sexo");
+                int sexo = 0;
+                if (sex.equals("Femenino")) {
+                    sexo = 1;
+                } else {
+                    sexo = 2;
+                }
+                String correo = request.getParameter("correo");
+                String contrasenia = request.getParameter("contra");
+                String rol = request.getParameter("rol");
+                Usuario u = new Usuario(id,nombre, edad, sexo, contrasenia, correo, rol);
+                System.out.println(u.toString());
+                if (conUsuario.actualizarAdmin(u)) {
+                    request.setAttribute("mensaje", "Cliente Actualizado");
+                } else {
+                    request.setAttribute("mensaje", "Error al Actualizar Cliente");
+                }
             }
-            List<Usuario> usuarios = conUsuario.leeTodos();
-            request.setAttribute("usuarios", usuarios);
-            request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+            if (bandera) {
+                List<Usuario> usuarios = conUsuario.leeTodos();
+                request.setAttribute("usuarios", usuarios);
+                request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+            }
 
         } finally {
             out.close();
@@ -70,7 +100,6 @@ public class usuariosON extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         processRequest(request, response);
     }
 }

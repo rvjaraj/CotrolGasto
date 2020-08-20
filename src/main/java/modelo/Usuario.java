@@ -33,6 +33,15 @@ public class Usuario {
         this.correo = correo;
         this.rol = rol;
     }
+    public Usuario(int id, String nombre, int edad, int sexo, String contrasenia, String correo, String rol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.sexo = sexo;
+        this.contrasenia = contrasenia;
+        this.correo = correo;
+        this.rol = rol;
+    }
 
     public Usuario(String nombre, int edad, int sexo, String contrasenia, String correo, String rol) {
         this.nombre = nombre;

@@ -53,7 +53,7 @@ public class ControladorUsuario {
         try {
             conn = ConectaDB.abrir();
             stm = conn.createStatement();
-            resultUpdate = stm.executeUpdate("DELETE FROM usuario WHERE idusuario = " + id +";");
+            resultUpdate = stm.executeUpdate("DELETE FROM usuario WHERE idusuario = " + id + ";");
             if (resultUpdate != 0) {
                 ConectaDB.cerrar();
                 return true;
@@ -77,8 +77,8 @@ public class ControladorUsuario {
                     + "u.edad = " + u.getEdad() + ", "
                     + "u.sexo = " + u.getSexo() + ", "
                     + "u.correo = '" + u.getCorreo() + "', "
-                    + "u.rol = '" + u.getRol() + "' WHERE u.idusuario = " + u.getId() +");");
-
+                    + "u.rol = '" + u.getRol() + "' WHERE u.idusuario = " + u.getId() + ";");
+            System.out.println(resultUpdate);
             if (resultUpdate != 0) {
                 ConectaDB.cerrar();
                 return true;
@@ -90,6 +90,25 @@ public class ControladorUsuario {
             System.out.println("Error al Actualizar al Usuario");
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public Usuario buscarID(int id) {
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM usuario u WHERE u.idusuario = " + id + ";");
+            if (!rs.next()) {
+                System.out.println(" No existe usuario");
+                ConectaDB.cerrar();
+                return null;
+            } else {
+                return new Usuario(rs.getInt("idusuario"), rs.getString("nombre"), rs.getInt("edad"), rs.getInt("sexo"), rs.getString("password"), rs.getDouble("saldo"), rs.getString("correo"), rs.getString("rol"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return null;
         }
     }
 

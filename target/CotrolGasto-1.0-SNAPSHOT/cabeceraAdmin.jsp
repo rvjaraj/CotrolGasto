@@ -19,16 +19,16 @@
             background: linear-gradient(to right, #4CA1AF, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="registrosUsuarios.jsp">REGISTRAR CLIETE</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <form action="usuariosON" method="post">
+                <input name="tipo" value="regreso" hidden="true">
+                <input type="submit" class="btn btn-outline-primary" value="CRUD USUARIOS" />
+            </form>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp">APROBAR CATEGORIAS<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+                <form action="usuariosON" method="post">
+                    <input name="tipo" value="regreso" hidden="true">
+                    <input type="submit" class="btn btn-outline-secondary" value="CRUD CATEGORIAS" />
+                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">SALIR<span class="sr-only">(current)</span></a>
