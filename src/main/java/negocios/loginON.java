@@ -14,14 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.*;
+import modelo.Usuario;
 
 /**
  *
  * @author Vinicio
  */
-@WebServlet(name = "usuariosON", urlPatterns = {"/usuariosON"})
-public class usuariosON extends HttpServlet {
+@WebServlet(name = "loginON", urlPatterns = {"/loginON"})
+public class loginON extends HttpServlet {
 
     private ControladorUsuario conUsuario = new ControladorUsuario();
 
@@ -29,30 +29,18 @@ public class usuariosON extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String nombre = request.getParameter("nombre");
-            int edad = Integer.parseInt(request.getParameter("edad"));
-            String sex = request.getParameter("sexo");
-            int sexo = 0;
-            if (sex.equals("Femenino")) {
-                sexo = 1;
-            } else {
-                sexo = 2;
-            }
             String correo = request.getParameter("correo");
             String contrasenia = request.getParameter("contra");
-            String rol = request.getParameter("rol");
-            Usuario u = new Usuario(nombre, edad, sexo, contrasenia, correo, rol);
-            System.out.println(u.toString());
-            if (conUsuario.ingresar(u)) {
-                List<Usuario> usuarios = conUsuario.leeTodos();
-                if (usuarios != null) {
-                    request.setAttribute("usuarios", usuarios);
-                    request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
-                }else{
-                    request.setAttribute("usuarios", null);
-                    request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
-                }
+            System.out.println(contrasenia + " <> " + correo);
+            List<Usuario> usuarios = conUsuario.leeTodos();
+            if (usuarios != null) {
+                request.setAttribute("usuarios", usuarios);
+                request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
+            } else {
+                request.setAttribute("usuarios", null);
+                request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
             }
+
         } finally {
             out.close();
         }
@@ -60,7 +48,7 @@ public class usuariosON extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         processRequest(request, response);
     }
+
 }

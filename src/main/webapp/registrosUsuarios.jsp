@@ -4,7 +4,13 @@
     Author     : Vinicio
 --%>
 
+<%@page import="modelo.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    ArrayList<Usuario> listUsuarios = null;
+    listUsuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
+%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,7 +54,7 @@
                             <option>USUARIO</option>
                         </select>
                     </div>
-                    
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user">Correo</i></span>
@@ -65,6 +71,67 @@
                     <button type="submit" class="btn btn-outline-primary">GUARDAR</button>
                 </form>
             </div>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">EDAD</th>
+                        <th scope="col">SEXO</th>
+                        <th scope="col">CORREO</th>
+                        <th scope="col">ROL</th>
+                        <th scope="col">SALDO</th>
+                        <th scope="col">ELIMINAR</th>
+                        <th scope="col">EDITAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        if (listUsuarios == null) { %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Lista Vacia</strong>                     
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <%} else {
+                    for (Usuario u : listUsuarios) {
+                %>
+                <tr valign="rigth">
+                    <td><%=u.getId()%></td>
+                    <td><%=u.getNombre()%></td>
+                    <td><%=u.getEdad()%></td>
+                    <td>
+                        <%
+                            if (u.getSexo() == 1) {
+                                out.print("Femenino");
+                            } else {
+                                out.print("Masculino");
+                            }
+                        %>
+                    </td>
+                    <td><%=u.getCorreo()%></td>
+                    <td><%=u.getRol()%></td>
+                    <td><%=u.getSaldo()%></td>
+                    <td><form>
+                            <input name="tipo" value="eliminar" hidden="true">
+                            <input name="id" value="<%=u.getId()%>" hidden="true">
+                            <button type="submit" class="btn btn-outline-danger">ELIMINAR</button>
+                        </form></td>
+                    <td><form>
+                            <input name="tipo" value="modificar" hidden="true">
+                            <input name="id" value="<%=u.getId()%>" hidden="true">
+                            <button type="submit" class="btn btn-outline-success">MODIFICAR</button>
+                        </form></td>
+
+                </tr>
+
+                <% }
+                    }%>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

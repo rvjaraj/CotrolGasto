@@ -29,8 +29,14 @@
                         <a class="nav-link" href="index.jsp">APROBAR CATEGORIAS<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.jsp">SALIR<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
             </div>
         </nav>
+        <br>
 
         <script src="templete/js/jquery-3.3.1.slim.min.js"></script>
         <script src="templete/js/jquery-1.11.2.js" type="text/javascript"></script>
