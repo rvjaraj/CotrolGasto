@@ -45,7 +45,8 @@ public class loginON extends HttpServlet {
                         request.setAttribute("mensaje", "ADMINISTRADOR");
                         request.getRequestDispatcher("/registrosUsuarios.jsp").forward(request, response);
                     } else {
-                        System.out.println("Entrado como usuario");
+                        request.setAttribute("mensaje", "Usuario: " + res.getNombre());
+                        request.setAttribute("usuario", res);
                         request.getRequestDispatcher("/usuario.jsp").forward(request, response);
                     }
                 } else {

@@ -67,7 +67,29 @@ public class ControladorUsuario {
             return false;
         }
     }
+    
+    public boolean actualizarSaldo(double saldo, int id) {
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            resultUpdate = stm.executeUpdate("UPDATE usuario u SET "
+                    + "u.saldo = " + saldo + " WHERE u.idusuario = " + id + ";");
+            System.out.println(resultUpdate);
+            if (resultUpdate != 0) {
+                ConectaDB.cerrar();
+                return true;
+            } else {
+                ConectaDB.cerrar();
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar al Usuario");
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    
     public boolean actualizarAdmin(Usuario u) {
         try {
             conn = ConectaDB.abrir();
