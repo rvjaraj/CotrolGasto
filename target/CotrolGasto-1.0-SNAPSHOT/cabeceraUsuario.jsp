@@ -4,7 +4,12 @@
     Author     : Vinicio
 --%>
 
+<%@page import="modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario usr = (Usuario) request.getAttribute("usuario");
+%>
+
 <!DOCTYPE html>
 <html>
     <h:head>
@@ -19,21 +24,17 @@
             background: linear-gradient(to right, #4CA1AF, #4CA1AF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             ">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="registrosUsuarios.jsp">SALDO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <form action="clientesON" method="post">
+                <input name="tipo" value="regreso" hidden="true">
+                <input name="id" value="<%out.print(usr.getId()); %>" hidden="true">
+                <input type="submit" class="btn btn-outline-primary" value="MIS DATOS" />
+            </form>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp">GASTOS<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.jsp">INGRESOS<span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+                <form action="clientesON" method="post">
+                    <input name="tipo" value="categoria" hidden="true">
+                    <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
+                    <input type="submit" class="btn btn-outline-secondary" value="GATEGORIA" />
+                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">SALIR<span class="sr-only">(current)</span></a>

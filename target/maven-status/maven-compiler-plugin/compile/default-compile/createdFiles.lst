@@ -1,7 +1,10 @@
 controlador\ControladorUsuario.class
 com\mycompany\cotrolgasto\JAXRSConfiguration.class
 com\mycompany\cotrolgasto\resources\JavaEE8Resource.class
+controlador\ControladorCategoria.class
+negocios\clientesON.class
 negocios\loginON.class
+modelo\Categoria.class
 controlador\ConectaDB.class
 modelo\Usuario.class
 negocios\usuariosON.class
