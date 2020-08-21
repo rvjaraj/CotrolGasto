@@ -5,6 +5,7 @@
  */
 package negocios;
 
+import controlador.ControladorCategoria;
 import controlador.ControladorUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +25,7 @@ import modelo.*;
 public class usuariosON extends HttpServlet {
 
     private ControladorUsuario conUsuario = new ControladorUsuario();
+    private ControladorCategoria conCategoria = new ControladorCategoria();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -65,7 +67,7 @@ public class usuariosON extends HttpServlet {
                 request.setAttribute("usuario", u);
                 request.getRequestDispatcher("/modificarUsuario.jsp").forward(request, response);
                 bandera = false;
-            }else if (tipo.equals("actualizar")) {
+            } else if (tipo.equals("actualizar")) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 String nombre = request.getParameter("nombre");
                 int edad = Integer.parseInt(request.getParameter("edad"));
@@ -79,13 +81,40 @@ public class usuariosON extends HttpServlet {
                 String correo = request.getParameter("correo");
                 String contrasenia = request.getParameter("contra");
                 String rol = request.getParameter("rol");
-                Usuario u = new Usuario(id,nombre, edad, sexo, contrasenia, correo, rol);
+                Usuario u = new Usuario(id, nombre, edad, sexo, contrasenia, correo, rol);
                 System.out.println(u.toString());
                 if (conUsuario.actualizarAdmin(u)) {
                     request.setAttribute("mensaje", "Cliente Actualizado");
                 } else {
                     request.setAttribute("mensaje", "Error al Actualizar Cliente");
                 }
+            } else if (tipo.equals("categoria")) {
+                List<Categoria> categorias = conCategoria.leeTodos();
+                request.setAttribute("categorias", categorias);
+                request.getRequestDispatcher("/listaCategorias.jsp").forward(request, response);
+                bandera = false;
+            } else if (tipo.equals("Acategoria")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (conCategoria.actualizarEstado(1, id)) {
+                    request.setAttribute("mensaje", "Categorias Aprobada");
+                } else {
+                    request.setAttribute("mensaje", "Categoria no actualizada");
+                }
+                List<Categoria> categorias = conCategoria.leeTodos();
+                request.setAttribute("categorias", categorias);
+                request.getRequestDispatcher("/listaCategorias.jsp").forward(request, response);
+                bandera = false;
+            } else if (tipo.equals("Dcategoria")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (conCategoria.actualizarEstado(2, id)) {
+                    request.setAttribute("mensaje", "Categorias Desaprobada");
+                } else {
+                    request.setAttribute("mensaje", "Categoria no actualizada");
+                }
+                List<Categoria> categorias = conCategoria.leeTodos();
+                request.setAttribute("categorias", categorias);
+                request.getRequestDispatcher("/listaCategorias.jsp").forward(request, response);
+                bandera = false;
             }
             if (bandera) {
                 List<Usuario> usuarios = conUsuario.leeTodos();

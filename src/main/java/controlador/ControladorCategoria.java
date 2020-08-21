@@ -108,7 +108,7 @@ public class ControladorCategoria {
         try {
             conn = ConectaDB.abrir();
             stm = conn.createStatement();
-            rs = stm.executeQuery("SELECT * FROM usuario");
+            rs = stm.executeQuery("SELECT * FROM categoria");
             if (!rs.next()) {
                 System.out.println(" No se encontraron registros");
                 ConectaDB.cerrar();

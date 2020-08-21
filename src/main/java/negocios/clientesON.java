@@ -58,7 +58,8 @@ public class clientesON extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
 
                 String descripcion = request.getParameter("descripcion");
-                String tip = request.getParameter("tipo");
+                String tip = request.getParameter("tip");
+                System.out.println(tip);
                 int ti = 0;
                 if(tip.equals("INGRESOS")){
                     ti = 1;

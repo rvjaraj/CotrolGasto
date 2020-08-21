@@ -26,8 +26,8 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <form action="usuariosON" method="post">
-                    <input name="tipo" value="regreso" hidden="true">
-                    <input type="submit" class="btn btn-outline-secondary" value="CRUD CATEGORIAS" />
+                    <input name="tipo" value="categoria" hidden="true">
+                    <input type="submit" class="btn btn-outline-secondary" value="GATEGORIA" />
                 </form>
                 <ul class="navbar-nav">
                     <li class="nav-item active">

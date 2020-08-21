@@ -44,7 +44,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user">Tipo</i></span>
                         </div>
-                        <select class="form-control form-control" name="tipo">
+                        <select class="form-control form-control" name="tip">
                             <option>INGRESOS</option>
                             <option>EGRESOS</option>
                         </select>
