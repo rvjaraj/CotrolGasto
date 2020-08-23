@@ -33,22 +33,22 @@
                 <form action="clientesON" method="post">
                     <input name="tipo" value="categoria" hidden="true">
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
-                    <input type="submit" class="btn btn-outline-secondary" value="GATEGORIA" />
+                    <input type="submit" class="btn btn-outline-warning" value="GATEGORIA" />
                 </form>
                 <form action="gastosON" method="post">
                     <input name="tipo" value="gastos" hidden="true">
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
-                    <input type="submit" class="btn btn-outline-secondary" value="GASTOS" />
+                    <input type="submit" class="btn btn-outline-info" value="GASTOS" />
                 </form>
                 <form action="gastosON" method="post">
                     <input name="tipo" value="ingreso" hidden="true">
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
-                    <input type="submit" class="btn btn-outline-secondary" value="INGRESOS" />
+                    <input type="submit" class="btn btn-outline-light" value="INGRESOS" />
                 </form>
                  <form action="gastosON" method="post">
                     <input name="tipo" value="resumen" hidden="true">
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
-                    <input type="submit" class="btn btn-outline-secondary" value="RESUMEN" />
+                    <input type="submit" class="btn btn-outline-success" value="RESUMEN" />
                 </form>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
