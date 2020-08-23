@@ -45,6 +45,11 @@
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
                     <input type="submit" class="btn btn-outline-secondary" value="INGRESOS" />
                 </form>
+                 <form action="gastosON" method="post">
+                    <input name="tipo" value="resumen" hidden="true">
+                    <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
+                    <input type="submit" class="btn btn-outline-secondary" value="RESUMEN" />
+                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">SALIR<span class="sr-only">(current)</span></a>

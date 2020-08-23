@@ -45,13 +45,23 @@ public class gastosON extends HttpServlet {
                 request.setAttribute("usuario", u);
                 request.setAttribute("categorias", listae);
                 request.getRequestDispatcher("/gastos.jsp").forward(request, response);
-            } else if(tipo.equals("ingreso")){
+            } else if (tipo.equals("ingreso")) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Usuario u = conUsuario.buscarID(id);
                 request.setAttribute("usuario", u);
                 request.setAttribute("categorias", listai);
                 request.getRequestDispatcher("/ingresos.jsp").forward(request, response);
-            }else if (tipo.equals("creargasto")) {
+            } else if (tipo.equals("resumen")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Usuario u = conUsuario.buscarID(id);
+                request.setAttribute("usuario", u);
+                List<Transaccion> gastos = conTransaccion.leeEgresos(id);
+                List<Transaccion> ingresos = conTransaccion.leeIngresos(id);
+                request.setAttribute("ingresos", ingresos);
+                request.setAttribute("gastos", gastos);
+
+                request.getRequestDispatcher("/resumen.jsp").forward(request, response);
+            } else if (tipo.equals("creargasto")) {
                 Double valor = Double.parseDouble(request.getParameter("valor"));
                 String fecha = request.getParameter("fecha");
                 String frecuencia = request.getParameter("frecuencia");

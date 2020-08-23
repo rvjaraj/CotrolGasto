@@ -88,19 +88,19 @@ public class ControladorTransaccion {
         }
     }
 
-    public ArrayList<Transaccion> leeIngresos() {
+    public ArrayList<Transaccion> leeIngresos(int id) {
         ArrayList<Transaccion> transaccions = new ArrayList<Transaccion>();
         try {
             conn = ConectaDB.abrir();
             stm = conn.createStatement();
-            rs = stm.executeQuery("SELECT * FROM transaccion t, categoria c WHERE c.idcategoria = t.categoria_id and c.tipo = 1");
+            rs = stm.executeQuery("SELECT * FROM transaccion t, categoria c WHERE c.idcategoria = t.categoria_id and c.tipo = 1 and t.usuario_id = " +id);
             if (!rs.next()) {
                 System.out.println(" No se encontraron registros");
                 ConectaDB.cerrar();
                 return null;
             } else {
                 do {
-                    Transaccion t = new Transaccion(rs.getInt("idtransaccion"), rs.getDouble("valor"), rs.getString("fecha"), rs.getString("frecuencia"), rs.getInt("usuario_id"), rs.getInt("categoria_id"));
+                    Transaccion t = new Transaccion(rs.getInt("idtransaccion"), rs.getDouble("valor"), rs.getString("fecha"), rs.getString("frecuencia"), rs.getInt("usuario_id"), rs.getInt("categoria_id"), rs.getString("descripcion"));
                     transaccions.add(t);
                 } while (rs.next());
                 ConectaDB.cerrar();
@@ -113,19 +113,19 @@ public class ControladorTransaccion {
         }
     }
 
-    public ArrayList<Transaccion> leeEgresos() {
+    public ArrayList<Transaccion> leeEgresos(int id) {
         ArrayList<Transaccion> transaccions = new ArrayList<Transaccion>();
         try {
             conn = ConectaDB.abrir();
             stm = conn.createStatement();
-            rs = stm.executeQuery("SELECT * FROM transaccion t, categoria c WHERE c.idcategoria = t.categoria_id and c.tipo = 2");
+            rs = stm.executeQuery("SELECT * FROM transaccion t, categoria c WHERE c.idcategoria = t.categoria_id and c.tipo = 2 and t.usuario_id = " +id);
             if (!rs.next()) {
                 System.out.println(" No se encontraron registros");
                 ConectaDB.cerrar();
                 return null;
             } else {
                 do {
-                    Transaccion t = new Transaccion(rs.getInt("idtransaccion"), rs.getDouble("valor"), rs.getString("fecha"), rs.getString("frecuencia"), rs.getInt("usuario_id"), rs.getInt("categoria_id"));
+                    Transaccion t = new Transaccion(rs.getInt("idtransaccion"), rs.getDouble("valor"), rs.getString("fecha"), rs.getString("frecuencia"), rs.getInt("usuario_id"), rs.getInt("categoria_id"), rs.getString("descripcion"));
                     transaccions.add(t);
                 } while (rs.next());
                 ConectaDB.cerrar();

@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
+
 /**
  *
  * @author Vinicio
@@ -16,10 +18,21 @@ public class Transaccion {
     private String frecuencia;
     private int usario;
     private int categoria;
+    private String cateogrianame;
 
     public Transaccion() {
     }
 
+    public Transaccion(int id, double valor, String fecha, String frecuencia, int usario, int categoria, String cateogrianame) {
+        this.id = id;
+        this.valor = valor;
+        this.fecha = fecha;
+        this.frecuencia = frecuencia;
+        this.usario = usario;
+        this.categoria = categoria;
+        this.cateogrianame = cateogrianame;
+    }
+    
     public Transaccion(int id, double valor, String fecha, String frecuencia, int usario, int categoria) {
         this.id = id;
         this.valor = valor;
@@ -28,6 +41,7 @@ public class Transaccion {
         this.usario = usario;
         this.categoria = categoria;
     }
+    
     
     public Transaccion(double valor, String fecha, String frecuencia, int usario, int categoria) {
         this.valor = valor;
@@ -84,8 +98,13 @@ public class Transaccion {
     public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
-    
-    
-    
+
+    public String getCateogrianame() {
+        return cateogrianame;
+    }
+
+    public void setCateogrianame(String cateogrianame) {
+        this.cateogrianame = cateogrianame;
+    }
     
 }
