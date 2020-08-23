@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `gastos`.`usuario` (
   `edad` INT NOT NULL,
   `sexo` INT NOT NULL,
   `password` VARCHAR(45) NOT NULL,
+  `rol` VARCHAR(45) NOT NULL,
   `saldo` DECIMAL NULL,
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
@@ -46,7 +47,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gastos`.`transaccion` (
   `idtransaccion` INT NOT NULL AUTO_INCREMENT,
-  `valor` DECIMAL NOT NULL,
+  `valor` DECIMAL(8,2) NOT NULL,
   `fecha` VARCHAR(10) NOT NULL,
   `frecuencia` VARCHAR(45) NOT NULL,
   `usuario_id` INT NOT NULL,

@@ -1,5 +1,6 @@
 controlador\ControladorUsuario.class
 com\mycompany\cotrolgasto\JAXRSConfiguration.class
+negocios\gastosON.class
 com\mycompany\cotrolgasto\resources\JavaEE8Resource.class
 controlador\ControladorCategoria.class
 negocios\clientesON.class

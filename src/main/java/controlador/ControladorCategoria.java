@@ -102,13 +102,64 @@ public class ControladorCategoria {
             return null;
         }
     }
-
+    
     public ArrayList<Categoria> leeTodos() {
         ArrayList<Categoria> categorias = new ArrayList<Categoria>();
         try {
             conn = ConectaDB.abrir();
             stm = conn.createStatement();
             rs = stm.executeQuery("SELECT * FROM categoria");
+            if (!rs.next()) {
+                System.out.println(" No se encontraron registros");
+                ConectaDB.cerrar();
+                return null;
+            } else {
+                do {
+                    Categoria u = new Categoria(rs.getInt("idcategoria"), rs.getString("descripcion"), rs.getInt("tipo"), rs.getInt("estado"));
+                    categorias.add(u);
+                } while (rs.next());
+                ConectaDB.cerrar();
+                return categorias;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+
+    public ArrayList<Categoria> leeIngresos() {
+        ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM categoria where estado = 1 and tipo = 1");
+            if (!rs.next()) {
+                System.out.println(" No se encontraron registros");
+                ConectaDB.cerrar();
+                return null;
+            } else {
+                do {
+                    Categoria u = new Categoria(rs.getInt("idcategoria"), rs.getString("descripcion"), rs.getInt("tipo"), rs.getInt("estado"));
+                    categorias.add(u);
+                } while (rs.next());
+                ConectaDB.cerrar();
+                return categorias;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<Categoria> leeEgresos() {
+        ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+        try {
+            conn = ConectaDB.abrir();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM categoria where estado = 1 and tipo = 2");
             if (!rs.next()) {
                 System.out.println(" No se encontraron registros");
                 ConectaDB.cerrar();
