@@ -34,7 +34,8 @@ public class gastosON extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Categoria> listac = conCategoria.leeIngresos();
+        List<Categoria> listae = conCategoria.leeEgresos();
+        List<Categoria> listai = conCategoria.leeIngresos();
         PrintWriter out = response.getWriter();
         try {
             String tipo = request.getParameter("tipo");
@@ -42,9 +43,15 @@ public class gastosON extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Usuario u = conUsuario.buscarID(id);
                 request.setAttribute("usuario", u);
-                request.setAttribute("categorias", listac);
+                request.setAttribute("categorias", listae);
                 request.getRequestDispatcher("/gastos.jsp").forward(request, response);
-            } else if (tipo.equals("creargasto")) {
+            } else if(tipo.equals("ingreso")){
+                int id = Integer.parseInt(request.getParameter("id"));
+                Usuario u = conUsuario.buscarID(id);
+                request.setAttribute("usuario", u);
+                request.setAttribute("categorias", listai);
+                request.getRequestDispatcher("/ingresos.jsp").forward(request, response);
+            }else if (tipo.equals("creargasto")) {
                 Double valor = Double.parseDouble(request.getParameter("valor"));
                 String fecha = request.getParameter("fecha");
                 String frecuencia = request.getParameter("frecuencia");
@@ -59,7 +66,7 @@ public class gastosON extends HttpServlet {
                 }
                 Usuario u = conUsuario.buscarID(usuario);
                 request.setAttribute("usuario", u);
-                request.setAttribute("categorias", listac);
+                request.setAttribute("categorias", listae);
                 request.getRequestDispatcher("/gastos.jsp").forward(request, response);
 
             }

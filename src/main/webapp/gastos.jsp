@@ -32,7 +32,7 @@
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
             <div class="card-body">
-                <h5 class="card-title text-center">REGISTRAR INGRESOS</h5>
+                <h5 class="card-title text-center">REGISTRAR GASTOS</h5>
                 <form action="gastosON" method="post"><br></br>
                     <input name="id" value="<%out.print(usr.getId());%>" hidden="true">
                     <input name="tipo" value="creargasto" hidden="true">
@@ -58,7 +58,6 @@
                             <option>SEMANAL</option>
                             <option>QUINCENAL</option>
                             <option>MENSUAL</option>
-
                         </select>
                     </div>
                     <div class="input-group form-group">
